@@ -1,3 +1,3 @@
 # Project_Euler
 
-To so moje rešitve nalog iz strani: https://projecteuler.net/
+These are my solutions of tasks from: https://projecteuler.net/
