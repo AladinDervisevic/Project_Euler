@@ -19,7 +19,11 @@ grid = '''08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48'''
 
-# What is the greatest product of four adjacent numbers in the same direction 
+grid = grid.replace('\n', ' ').split(' ')
+for i in range(len(grid)):
+    grid[i] = int(grid[i])
+
+# What is the greatest product of four adjacent numbers in the same direction
 # (up, down, left, right, or diagonally) in the 20×20 grid?
 #____________________________________________________________________________
 
@@ -29,35 +33,37 @@ def produkt(seznam):
         produkt *= i
     return produkt
 
-grid = grid.replace('\n', ' ').split(' ')
-for i in range(len(grid)):
-    grid[i] = int(grid[i])
+def largest_product_in_a_grid(grid):
+    mat = []  # matrika
+    for _ in range(20):
+        sez = grid[:20]
+        mat.append(sez)
+        grid = grid[20:]
+    najvecji_produkt = 0
+    for i in range(17):
+        for j in range(17):
+            nova_mat = []
+            horiz = 0
+            vert = 0
+            diag = 0
+            reverse_diag = 0
+            nova_mat = [
+                mat[i][j : j + 4],
+                mat[i + 1][j : j + 4],
+                mat[i + 2][j : j + 4],
+                mat[i + 3][j : j + 4]
+            ]
+            horiz = max([produkt(vrstica) for vrstica in nova_mat])
+            diag = produkt([nova_mat[k][k] for k in range(4)])
+            vert = max(
+                produkt([nova_mat[w][0] for w in range(4)]), 
+                produkt([nova_mat[e][1] for e in range(4)]),
+                produkt([nova_mat[r][2] for r in range(4)]), 
+                produkt([nova_mat[t][3] for t in range(4)])
+            )
+            reverse_diag = produkt([nova_mat[o][3-o] for o in range(4)])
+            if max(vert, horiz, diag, reverse_diag) >= najvecji_produkt:
+                najvecji_produkt = max(vert, horiz, diag, reverse_diag)
+    return najvecji_produkt
 
-mat = []  # matrika
-for _ in range(20):
-    sez = grid[:20]
-    mat.append(sez)
-    grid = grid[20:]
-
-najvecji_produkt = 0
-for i in range(17):
-    for j in range(17):
-        nova_mat = []
-        horizontal = 0
-        vertical = 0
-        diagonal = 0
-        reverse_diagonal = 0
-        nova_mat = [
-            mat[i][j : j + 4],
-            mat[i + 1][j : j + 4],
-            mat[i + 2][j : j + 4],
-            mat[i + 3][j : j + 4]
-        ]
-        horizontal = max([produkt(vrstica) for vrstica in nova_mat])
-        diagonal = produkt([nova_mat[k][k] for k in range(4)])
-        vertical = max(produkt([nova_mat[w][0] for w in range(4)]), produkt([nova_mat[e][1] for e in range(4)]),
-        produkt([nova_mat[r][2] for r in range(4)]), produkt([nova_mat[t][3] for t in range(4)]))
-        reverse_diagonal = produkt([nova_mat[o][3-o] for o in range(4)])
-        if max(vertical, horizontal, diagonal, reverse_diagonal) >= najvecji_produkt:
-            najvecji_produkt = max(vertical, horizontal, diagonal, reverse_diagonal)
-print(najvecji_produkt)
+print(largest_product_in_a_grid(grid))

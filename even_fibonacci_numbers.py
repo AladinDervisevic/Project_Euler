@@ -5,11 +5,13 @@
 # find the sum of the even-valued terms.
 #___________________________________________________________________________________________
 
+def even_fibonacci_numbers():
+    first, second = 1, 2
+    sum = 0
+    while second <= 4 * 10 ** 6:
+        if second % 2 == 0:
+            sum += second
+        first, second = second, first + second
+    return sum
 
-first, second = 1, 2
-sum = 0
-while second <= 4 * 10 ** 6:
-    if second % 2 == 0:
-        sum += second
-    first, second = second, first + second
-print(sum)
+print(even_fibonacci_numbers())

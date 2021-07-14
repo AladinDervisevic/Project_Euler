@@ -1,9 +1,18 @@
-# The four adjacent digits in the 1000-digit number that have the greatest product are 9 × 9 × 8 × 9 = 5832.
-# Find the thirteen adjacent digits in the 1000-digit number that have the greatest product.
+# The four adjacent digits in the 1000-digit number that have 
+# the greatest product are 9 × 9 × 8 × 9 = 5832.
+# Find the thirteen adjacent digits in the 1000-digit number 
+# that have the greatest product.
 # What is the value of this product?
-#__________________________________________________________________________________________________________
+#_____________________________________________________________
 
-large_number = '''73167176531330624919225119674426574742355349194934
+def product(number):
+    if number <= 9:
+        return number
+    else:
+        return (number % 10) * product(number // 10) 
+
+def largest_product_of_n_digits_in_a_series(n):
+    large_number = '''73167176531330624919225119674426574742355349194934
 96983520312774506326239578318016984801869478851843
 85861560789112949495459501737958331952853208805511
 12540698747158523863050715693290963295227443043557
@@ -23,18 +32,12 @@ large_number = '''73167176531330624919225119674426574742355349194934
 84580156166097919133875499200524063689912560717606
 05886116467109405077541002256983155200055935729725
 71636269561882670428252483600823257530420752963450'''.replace('\n', '')
+    max = 0
+    while len(large_number) >= n:
+        candidate = product(int(large_number[:n]))
+        if candidate > max:
+            max = candidate
+        large_number = large_number[1:]
+    return max
 
-def product(number):
-    if number <= 9:
-        return number
-    else:
-        return (number % 10) * product(number // 10) 
-
-max = 0
-while len(large_number) >= 13:
-    candidate = product(int(large_number[:13]))
-    if candidate > max:
-        max = candidate
-    large_number = large_number[1:]
-print(max)
-    
+print(largest_product_of_n_digits_in_a_series(13))

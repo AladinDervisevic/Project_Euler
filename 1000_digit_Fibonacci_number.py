@@ -14,14 +14,17 @@
 # F_11 = 89
 # F_12 = 144
 # The 12th term, F_12, is the first term to contain three digits.
-# What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
-#_____________________________________________________________________________________
+# What is the index of the first term in the Fibonacci sequence 
+# to contain 1000 digits?
+#________________________________________________________________
 
-first, second = 1, 1
-counter = 2
-while True:
-    first, second = second, first + second
-    counter += 1
-    if len(str(second)) == 1000:
-        print(counter)
-        break
+def first_thousand_digit_fibonacci():
+    first, second = 1, 1
+    counter = 2
+    while True:
+        first, second = second, first + second
+        counter += 1
+        if len(str(second)) == 1000:
+            return counter
+
+print(first_thousand_digit_fibonacci())
