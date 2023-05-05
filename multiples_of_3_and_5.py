@@ -4,11 +4,18 @@
 # Find the sum of all the multiples of 3 or 5 below 1000.
 #_________________________________________________________________________
 
-def multiples():
+import time
+
+def main():
+    start = time.time()
+
     sum = 0
     for i in range(1000):
         if i % 3 == 0 or i % 5 == 0:
             sum += i
-    return sum
+    
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {sum}\nporabljen cas = {cas}")
 
-print(multiples())
+main()

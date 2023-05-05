@@ -24,15 +24,26 @@
 # How many Lychrel numbers are there below ten-thousand?
 #_______________________________________________________________________
 
-def is_not_lychrel(number):
-    for _ in range(50):
-        number = number + int(str(number)[::-1])
-        if str(number) == str(number)[::-1]:
-            return True
-    return False
+import time
 
-lychrel_numbers = set(range(1, 10 ** 4))
-for i in range(1, 10 ** 4):
-    if is_not_lychrel(i):
-        lychrel_numbers = lychrel_numbers - {i}
-print(len(lychrel_numbers))
+def is_lychrel(number):
+    for _ in range(50):
+        number += int(str(number)[::-1])
+        if str(number) == str(number)[::-1]:
+            return False
+    return True
+
+def main():
+    start = time.time()
+
+    lychrel_numbers = 0
+    for i in range(1, 10 ** 4):
+        if is_lychrel(i):
+            lychrel_numbers += 1
+    resitev = lychrel_numbers
+
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

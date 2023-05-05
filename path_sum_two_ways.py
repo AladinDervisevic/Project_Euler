@@ -10,7 +10,7 @@
 # right and down in the given 80x80 matrix in the matrix.txt document.
 #___________________________________________________________________________
 import os
-os.chdir('C:\\Users\\ACER\\Desktop\\FMF\\UVP\\Project_Euler')
+from time import time
 
 def local_min_path_sum(matrix, i, j, dictionary_of_sums):
     if i == 0 and j == 0:
@@ -34,11 +34,21 @@ def min_path_sum(matrix):
             )
     return dictionary_of_sums[len(matrix) - 1, len(matrix[0]) - 1]
 
-with open('matrix.txt', encoding = 'utf-8') as file:
-    rows = file.read().strip().split('\n')
-    mat = []
-    for i in rows:
-        row = [int(j) for j in i.split(',')]
-        mat.append(row)
+def main():
+    start = time()
+    os.chdir('C:\\Users\\ACER\\Desktop\\FMF\\UVP\\Project_Euler')
 
-print(min_path_sum(mat))
+    with open('matrix.txt', encoding = 'utf-8') as file:
+        rows = file.read().strip().split('\n')
+        mat = []
+        for i in rows:
+            row = [int(j) for j in i.split(',')]
+            mat.append(row)
+    
+    resitev = min_path_sum(mat)
+
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

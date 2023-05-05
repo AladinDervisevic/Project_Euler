@@ -10,20 +10,29 @@
 # What is the largest 1 to 9 pandigital 9-digit number that can be formed 
 # as the concatenated product of an integer with (1,2, ... , n) where n > 1?
 #___________________________________________________________________________
+
+from time import time
 from itertools import permutations
 
-pandigitals = list(permutations(list('123456789'))) # pandigitals 1 to 9
-valid_numbers = [''.join(permutation) for permutation in pandigitals]
-max_pan = ''
-for i in range(1, 10 ** 4):
-    conc_product = f'{i}'
-    n = 2
-    while len(conc_product) < 9:
-        conc_product += str(i * n)
-        n += 1
-    if conc_product in valid_numbers:
-        if max_pan == '' or int(conc_product) > int(max_pan):
-            max_pan = conc_product
-print(int(max_pan))
+def main():
+    start = time()
+    pandigitals = set(
+        map(int, [''.join(i) for i in permutations('123456789')])
+    )
+    max_pan = 0
+    for i in range(1, 10 ** 4):
+        conc_product = f'{i}'
+        n = 2
+        while len(conc_product) < 9:
+            conc_product += str(i * n)
+            n += 1
+        vrednost = int(conc_product)
+        if vrednost in pandigitals and vrednost > max_pan:
+            max_pan = vrednost
+    resitev = max_pan
+    
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
 
-# Runtime : 30s
+main()

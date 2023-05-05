@@ -16,6 +16,8 @@
 # the longest recurring cycle in its decimal fraction part.
 #___________________________________________________________________
 
+from time import time
+
 def is_prime(n):
     if n <= 2:
         return n == 2
@@ -28,12 +30,21 @@ def is_prime(n):
                 return False
             d += 2
         return True
+    
+def recyprocal_primes():
+    for denominator in range(999, 6, -1):
+        if is_prime(denominator):
+            period = 1
+            while pow(10, period, denominator) != 1:  # <=> (10 ** period) % denominator (Fermat's little theorem)
+                period += 1
+            if denominator - 1 == period: # checking if the denominator is a full reptend prime
+                return denominator
 
-for denominator in range(999, 6, -1):
-    if is_prime(denominator):
-        period = 1
-        while pow(10, period, denominator) != 1:  # <=> (10 ** period) % denominator (Fermat's little theorem)
-            period += 1
-        if denominator - 1 == period: # checking if the denominator is a full reptend prime
-            print(denominator)
-            break
+def main():
+    start = time()
+    resitev = recyprocal_primes()
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

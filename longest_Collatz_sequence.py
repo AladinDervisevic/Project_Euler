@@ -18,6 +18,8 @@
 # NOTE: Once the chain starts the terms are allowed to go above one million.
 #___________________________________________________________________________
 
+import time
+
 def chain_length(n, lengths):
     if n in lengths:
         return lengths[n]
@@ -29,12 +31,19 @@ def chain_length(n, lengths):
 
 def longest_collatz_sequence():
     lengths = {1: 1}
-    longest_chain = 0
-    number_with_longest_chain = 0
+    max_len, result = 0, 0
     for i in range(1, 10 ** 6):
-        if chain_length(i, lengths) > longest_chain:
-            longest_chain = chain_length(i, lengths)
-            number_with_longest_chain = i
-    return number_with_longest_chain
+        len_i = chain_length(i, lengths)
+        if len_i > max_len:
+            max_len = len_i
+            result = i
+    return result
 
-print(longest_collatz_sequence())
+def main():
+    start = time.time()
+    resitev = longest_collatz_sequence()
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

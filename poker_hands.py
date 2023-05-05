@@ -32,7 +32,7 @@
 # How man hands does Player 1 win?
 #_____________________________________________________________________________
 import os
-os.chdir('C:\\Users\\ACER\\Desktop\\FMF\\UVP\\Project_Euler')
+from time import time
 
 def is_straight(numbers):
     numbers.sort()
@@ -47,38 +47,44 @@ def is_flush(cards):
 def value_of_hand(cards, values):
     numbers = [] # this will be a list of numbers without repetitions
     numbers_with_reps = [] 
+
     for card in cards:
         number = values[card[0]]
         if number not in numbers:
             numbers.append(number)
         numbers_with_reps.append(number)
-    repetitions = [numbers_with_reps.count(i) for i in numbers]
-    repetitions.sort()
-    repetitions.reverse()   # descending order
+
+    repetitions = sorted([numbers_with_reps.count(i) for i in numbers], reverse = True)
     numbers_sorted_by_reps = []
+
     for rep in range(1, max(repetitions) + 1):
         numbers_with_this_rep = [
             i for i in numbers if numbers_with_reps.count(i) == rep
         ]
         numbers_sorted_by_reps += sorted(numbers_with_this_rep)
     numbers_sorted_by_reps.reverse()        # descending order
-    #_______________________________________________________________
+    
     if is_flush(cards) and is_straight(numbers):    # straight flush
         return [(2, 1, 1), repetitions, numbers_sorted_by_reps]
+    
     elif repetitions == (4, 1):  # 4 of a kind
         if is_flush(cards):
             return [(2, 1, 0), repetitions, numbers_sorted_by_reps] # 4 of a kind + flush
         else:
             return [(2, 0, 0), repetitions, numbers_sorted_by_reps] # just 4 of a kind
+        
     elif repetitions == (3, 2):      # full house
         if is_flush(cards):
             return [(1, 1, 0), repetitions, numbers_sorted_by_reps]      # full house + flush
         else:
             return [(1, 0, 0), repetitions, numbers_sorted_by_reps]      # just full house
+        
     elif is_flush(cards):
         return [(0, 1, 0), repetitions, numbers_sorted_by_reps]  # flush + something
+    
     elif is_straight(numbers):
         return [(0, 0, 1), repetitions, numbers_sorted_by_reps]  # straight + something
+    
     else:
         return [(0, 0, 0), repetitions, numbers_sorted_by_reps]  # something
 
@@ -86,19 +92,27 @@ def poker(list_of_hands):
     values = {}
     for value, key in enumerate('23456789TJQKA', 2):
         values[key] = value
-    #___________________________________________________
+
     wins_for_player1 = 0
     for hand in list_of_hands:
         player1, player2 = hand[:5], hand[5:]
         if value_of_hand(player1, values) > value_of_hand(player2, values):
             wins_for_player1 += 1
+
     return wins_for_player1
 
-with open('poker.txt', encoding = 'utf-8') as file:
-    rounds = file.read().strip().split('\n')
-    
-hands = []
-for i in rounds:
-    hands.append(i.split(' '))
+def main():
+    start = time()
+    os.chdir('C:\\Users\\ACER\\Desktop\\FMF\\UVP\\Project_Euler')
 
-print(poker(hands))
+    with open('poker.txt', encoding = 'utf-8') as file:
+        rounds = file.read().strip().split('\n')
+
+    hands = [i.split(' ') for i in rounds]
+    resitev = poker(hands)
+    
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

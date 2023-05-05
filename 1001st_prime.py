@@ -3,6 +3,8 @@
 # What is the 10 001st prime number?
 #________________________________________________________________
 
+import time
+
 def is_prime(n):
     if n <= 2:
         return n == 2
@@ -25,4 +27,11 @@ def nth_prime(n):
                 return number
         number += 2
 
-print(nth_prime(10001))
+def main():
+    start = time.time()
+    resitev = nth_prime(10001)
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

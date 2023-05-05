@@ -6,6 +6,8 @@
 # are cube.
 #_____________________________________________________________________________
 
+import time
+
 def is_cube(n):
     if n <= 1:
         return False
@@ -24,4 +26,11 @@ def wanted_cube():
             return min(i ** 3 for i in cubes[key])
         i += 1
 
-print(wanted_cube())
+def main():
+    start = time.time()
+    resitev = wanted_cube()
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

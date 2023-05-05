@@ -9,7 +9,7 @@
 # What is the total of all the name scores in the file?
 #_________________________________________________________________________
 import os
-os.chdir('C:\\Users\\ACER\\Desktop\\FMF\\UVP\\Project_Euler')
+from time import time
 
 def score(name, values):
     sum = 0
@@ -17,14 +17,24 @@ def score(name, values):
         sum += values.get(letter, 0)
     return sum
 
-with open('names.txt', encoding='utf-8') as file:
-    names = file.read().strip().split(',')
-names.sort()
-letter_score = {}
-alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-for letter in alphabet:
-    letter_score[letter] = alphabet.index(letter) + 1
-total = sum(
-    score(name, letter_score) * i  for i, name in enumerate(names, 1)
-)
-print(total)
+def main():
+    start = time()
+    os.chdir('C:\\Users\\ACER\\Desktop\\FMF\\UVP\\Project_Euler')
+
+    with open('names.txt', encoding='utf-8') as file:
+        names = file.read().strip().split(',')
+    names.sort()
+    letter_value = {}
+    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    
+    for i, letter in enumerate(alphabet, 1):
+        letter_value[letter] = i
+    total = sum(
+        score(name, letter_value) * i  for i, name in enumerate(names, 1)
+    )
+    
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {total}\nporabljen cas = {cas}")
+
+main()

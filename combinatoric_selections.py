@@ -8,6 +8,8 @@
 # for 1 <= n <= 100, are greater than one-million?
 #________________________________________________________________
 
+import time
+
 def factorial(n, start = 1):
     if n == 0:
         return 1
@@ -24,10 +26,18 @@ def binom(n, r):
         return 1
     else:
         return factorial(n) // (factorial(r) * factorial(n - r))
+    
+def main():
+    start = time.time()
 
-counter = 0
-for n in range(1, 101):
-    for r in range(1, 101):
-        if r <= n and binom(n, r) > 1000000:
-            counter += 1
-print(counter)
+    counter = 0
+    for n in range(1, 101):
+        for r in range(1, 101):
+            if r <= n and binom(n, r) > 1000000:
+                counter += 1
+    
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {counter}\nporabljen cas = {cas}")
+
+main()

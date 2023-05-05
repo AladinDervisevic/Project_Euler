@@ -12,5 +12,13 @@
 # and the square of the sum.
 #__________________________________________________________________
 
-difference = sum(range(101)) ** 2 - sum(i ** 2 for i in range(101))
-print(difference)
+from time import time
+
+def main():
+    start = time()
+    difference = sum(range(101)) ** 2 - sum(i ** 2 for i in range(101))
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {difference}\nporabljen cas = {cas}")
+
+main()

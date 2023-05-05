@@ -21,19 +21,27 @@
 # L <= 1,500,000 can exactly one integer sided right angle triangle be formed?
 #_____________________________________________________________________________
 from math import gcd
+from time import time
 
-candidates, non_valids = set(), set()
-limit = int((1500000 / 2) ** 0.5)
-for m in range(2, limit):
-    for n in range(1, m):
-        if (m + n) % 2 == 1 and gcd(m, n) == 1:
-            a, b, c = m ** 2 - n ** 2, 2 * m * n, m ** 2 + n ** 2
-            wire = a + b + c
-            while wire <= 1500000:
-                if wire not in candidates:
-                    candidates.add(wire)
-                else:
-                    non_valids.add(wire)
-                wire += a + b + c
-result = len(candidates - non_valids)
-print(result)
+def main():
+    start = time()
+
+    candidates, non_valids = set(), set()
+    limit = int((1500000 / 2) ** 0.5)
+    for m in range(2, limit):
+        for n in range(1, m):
+            if (m + n) % 2 == 1 and gcd(m, n) == 1:
+                a, b, c = m ** 2 - n ** 2, 2 * m * n, m ** 2 + n ** 2
+                wire = a + b + c
+                while wire <= 15 * 10 ** 5:
+                    if wire not in candidates:
+                        candidates.add(wire)
+                    else:
+                        non_valids.add(wire)
+                    wire += a + b + c
+    result = len(candidates - non_valids)
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {result}\nporabljen cas = {cas}")
+
+main()

@@ -27,6 +27,8 @@
 # https://en.wikipedia.org/wiki/Continued_fraction
 # https://en.wikipedia.org/wiki/Chakravala_method 
 
+import time
+
 def is_square(number):
     return int(number ** 0.5) ** 2 == int(float(number ** 0.5) ** 2)
 
@@ -68,4 +70,11 @@ def Diophantine():
             result_D = D
     return result_D
 
-print(Diophantine())
+def main():
+    start = time.time()
+    resitev = Diophantine()
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

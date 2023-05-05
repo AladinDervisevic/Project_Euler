@@ -2,4 +2,18 @@
 # What is the sum of the digits of the number 2 ** 1000?
 #_______________________________________________________
 
-print(sum(int(i) for i in list(str(2 ** 1000))))
+from time import time
+
+def digit_sum(n):
+    if n < 10:
+        return n
+    return n % 10 + digit_sum(n // 10)
+
+def main():
+    start = time()
+    resitev = digit_sum(2 ** 1000)
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

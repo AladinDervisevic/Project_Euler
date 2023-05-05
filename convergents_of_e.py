@@ -11,6 +11,9 @@
 # of the continued fraction for e.
 #________________________________________________________________________
 
+import time
+from math import gcd
+
 def digit_sum(number):
     if number < 10:
         return number
@@ -24,7 +27,6 @@ def convergents_of_e():
             e.append(2 * k)
         else:
             e.append(1)
-    from math import gcd
     numerator = 1
     denominator = e[-1]
     for i in list(reversed(e))[1:]:
@@ -34,4 +36,11 @@ def convergents_of_e():
     numerator //= gcd(numerator, denominator)
     return digit_sum(numerator)
 
-print(convergents_of_e())
+def main():
+    start = time.time()
+    resitev = convergents_of_e()
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

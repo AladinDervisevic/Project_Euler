@@ -3,6 +3,8 @@
 # For example, 2143 is a 4-digit pandigital and is also prime.
 # What is the largest n-digit pandigital prime that exists?
 #____________________________________________________________________
+
+from time import time
 from itertools import permutations
 
 def is_prime(n):
@@ -17,14 +19,22 @@ def is_prime(n):
                 return False
             d += 2
         return True
+        
+def main():
+    start = time()
 
-def pandigital_prime():
     pandigitals = []
+    resitev = 0
     for i in range(4, 8):
-        for j in [int(''.join(perm)) for perm in permutations(list('1234567'), i)]:
+        for j in [int(''.join(p)) for p in permutations('1234567', i)]:
             pandigitals.append(j) 
     for i in sorted(pandigitals, reverse = True):
         if is_prime(i):
-            return i
+            resitev = i
+            break
 
-print(pandigital_prime())
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

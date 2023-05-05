@@ -23,6 +23,7 @@
 # is represented by a different number in the set.
 #____________________________________________________________________________
 from itertools import permutations
+import time
 
 def is_triangle(n):
     return len(str(n * (n + 1) // 2)) == 4
@@ -87,4 +88,11 @@ def cyclical_figurate_numbers():
                 result = numbers
     return sum(i * 100 + j for i, j in result)
 
-print(cyclical_figurate_numbers())
+def main():
+    start = time.time()
+    resitev = cyclical_figurate_numbers()
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

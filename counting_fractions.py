@@ -15,10 +15,20 @@
 # fi(n) = n * PI_(p|n) (1 - 1/p) = n * (1 - 1/p_1) *...* (1 - 1/p_m), 
 # where p_1, ... , p_m are prime factors of n.
 
-fi = [i for i in range(10 ** 6 + 1)]
-for i in range(2, 10 ** 6 + 1):
-    if fi[i] == i:
-        for j in range(i, 10 ** 6 + 1, i):
-            fi[j] = (fi[j] / i) * (i - 1)
-result = int(sum(fi)) - 1
-print(result)
+from time import time
+
+def main():
+    start = time()
+
+    phi = [i for i in range(10 ** 6 + 1)]
+    for p in range(2, 10 ** 6 + 1):
+        if phi[p] == p: # this will only hold for primes
+            for i in range(p, 10 ** 6 + 1, p):
+                phi[i] = (phi[i] // p) * (p - 1)
+    resitev = sum(phi) - 1 # -1 because phi(1) = 1
+
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

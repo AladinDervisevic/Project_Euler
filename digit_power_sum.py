@@ -8,17 +8,27 @@
 # You are given that a_2 = 512 and a_10 = 614656.
 # Find a_30.
 #_____________________________________________________________________
+import time
 
 def digit_sum(n):
-    return sum(int(i) for i in list(str(n)))
+    if n < 10:
+        return n
+    return n % 10 + digit_sum(n // 10)
 
 def digit_power_sum():
     powers = []
     for i in range(2, 100):
         for j in range(2, 100):
             power = pow(i, j)
-            if power > 9 and digit_sum(power) == i:
+            if digit_sum(power) == i:
                 powers.append(power)
     return sorted(powers)[29]
 
-print(digit_power_sum())
+def main():
+    start = time.time()
+    resitev = digit_power_sum()
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

@@ -8,15 +8,24 @@
 # Find the sum of all the numbers that can be written 
 # as the sum of fifth powers of their digits.
 #_______________________________________________________________
+import time
 
-def vsota_potenc(stevilo, k = 5):
+def vsota_potenc(stevilo):
     if stevilo <= 9:
-        return stevilo ** k
+        return stevilo ** 5
     else:
-        return (stevilo % 10) ** k + vsota_potenc(stevilo // 10, k)
+        return (stevilo % 10) ** 5 + vsota_potenc(stevilo // 10)
 
-vsota = 0
-for stevilo in range(1, 1000000):
-    if stevilo == vsota_potenc(stevilo) and vsota_potenc(stevilo) != 1:
-        vsota += stevilo
-print(vsota)
+def main():
+    start = time.time()
+
+    vsota = 0
+    for stevilo in range(2, 10 ** 6):
+        if stevilo == vsota_potenc(stevilo):
+            vsota += stevilo
+            
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {vsota}\nporabljen cas = {cas}")
+
+main()

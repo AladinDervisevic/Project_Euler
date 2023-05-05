@@ -18,13 +18,21 @@
 # to contain 1000 digits?
 #________________________________________________________________
 
-def first_thousand_digit_fibonacci():
+from time import time
+
+def main():
+    start = time()
+    
     first, second = 1, 1
     counter = 2
     while True:
         first, second = second, first + second
         counter += 1
         if len(str(second)) == 1000:
-            return counter
+            break
+    
+    end = time()
+    cas = round(end - start)
+    print(f"resitev = {counter}\nporabljen cas = {cas}")
 
-print(first_thousand_digit_fibonacci())
+main()

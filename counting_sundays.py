@@ -14,6 +14,8 @@
 #_______________________________________________________
 # 1st January 1901 was a Tuesday
 
+import time
+
 def counting_sundays():
     sundays_on_the_first = 0
     date_of_sunday = 6
@@ -42,4 +44,11 @@ def counting_sundays():
                 sundays_on_the_first += 1
     return sundays_on_the_first
 
-print(counting_sundays())
+def main():
+    start = time.time()
+    resitev = counting_sundays()
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

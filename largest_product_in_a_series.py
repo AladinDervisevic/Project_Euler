@@ -5,13 +5,15 @@
 # What is the value of this product?
 #_____________________________________________________________
 
+import time
+
 def product(number):
     if number <= 9:
         return number
     else:
         return (number % 10) * product(number // 10) 
 
-def largest_product_of_n_digits_in_a_series(n):
+def largest_product():
     large_number = '''73167176531330624919225119674426574742355349194934
 96983520312774506326239578318016984801869478851843
 85861560789112949495459501737958331952853208805511
@@ -31,13 +33,21 @@ def largest_product_of_n_digits_in_a_series(n):
 07198403850962455444362981230987879927244284909188
 84580156166097919133875499200524063689912560717606
 05886116467109405077541002256983155200055935729725
-71636269561882670428252483600823257530420752963450'''.replace('\n', '')
+71636269561882670428252483600823257530420752963450'''
+    large_number = large_number.replace('\n', '')
     max = 0
-    while len(large_number) >= n:
-        candidate = product(int(large_number[:n]))
+    while len(large_number) >= 13:
+        candidate = product(int(large_number[:13]))
         if candidate > max:
             max = candidate
         large_number = large_number[1:]
     return max
 
-print(largest_product_of_n_digits_in_a_series(13))
+def main():
+    start = time.time()
+    resitev = largest_product()
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

@@ -11,24 +11,51 @@
 # What is the first of these numbers?
 #___________________________________________________________________________
 
-def distinct_prime_factors(n, values, divisor = 2):
-    if n in values:
-        return values[n]
+import time
+
+def is_prime(n):
+    if n <= 2:
+        return n == 2
+    elif n % 2 == 0:
+        return False
+    else:
+        d = 3
+        while d ** 2 <= n:
+            if n % d == 0:
+                return False
+            d += 2
+        return True
+
+def prime_factors(n, distinct_primes, divisor = 2):
+    if is_prime(n):
+        return [n]
+    
+    if n in distinct_primes:
+        return distinct_primes[n]
+    
     for i in range(divisor, n + 1):
         if n % i == 0:
             while n % i == 0:
                 n //= i
             divisor = i
             break
-    return [divisor] + distinct_prime_factors(n, values, divisor + 1)
+    return [divisor] + prime_factors(n, distinct_primes, divisor + 1)
 
-values = {1: [], 2: [2], 3: [3], 4: [2]}  # number : list of distinct prime factors
-first, second, third, fourth = 2, 3, 4, 5
-while True:
-    values[fourth] = distinct_prime_factors(fourth, values)
-    if all(4 == len(values[i]) for i in [first, second, third, fourth]):
-        print(first)
-        break
-    first, second, third, fourth = second, third, fourth, fourth + 1
+def main():
+    start = time.time()
 
-# RunTime ~ 56s
+    distinct_primes = {1: [], 2: [2], 3: [3]}  # number : list of distinct prime factors
+    first, second, third, fourth = 1, 2, 3, 4
+
+    while True:
+        distinct_primes[fourth] = prime_factors(fourth, distinct_primes)
+        if all(4 == len(distinct_primes[i]) for i in [first, second, third, fourth]):
+            resitev = first
+            break
+        first, second, third, fourth = second, third, fourth, fourth + 1
+
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

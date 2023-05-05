@@ -10,16 +10,9 @@
 # Using the added 16K text file containing nearly two-thousand 
 # common English words, how many are triangle words?
 #______________________________________________________________________
+
+import time
 import os
-os.chdir('C:\\Users\\ACER\\Desktop\\FMF\\UVP\\Project_Euler')
-
-with open('words.txt', encoding = 'utf-8') as file:
-    list_of_words = file.read().strip().split(',')
-
-letter_values = {}
-alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-for number, letter in enumerate(alphabet, 1):
-    letter_values[letter] = number
 
 def value(word, values):
     value = 0
@@ -27,11 +20,31 @@ def value(word, values):
         value += values.get(letter, 0)
     return value
 
-triangle_numbers = []
-for n in range(1, 1000):
-    triangle_numbers.append(n * (n + 1) // 2)
-triangle_words = 0
-for word in list_of_words:
-    if value(word, letter_values) in triangle_numbers:
-        triangle_words += 1
-print(triangle_words)
+def main():
+    start = time.time()
+
+    os.chdir('C:\\Users\\ACER\\Desktop\\FMF\\UVP\\Project_Euler')
+
+    with open('words.txt', encoding = 'utf-8') as file:
+        list_of_words = file.read().strip().split(',')
+
+    letter_values = {}
+    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+    for number, letter in enumerate(alphabet, 1):
+        letter_values[letter] = number
+    triangle_numbers = []
+
+    for n in range(1, 1000):
+        triangle_numbers.append(n * (n + 1) // 2)
+
+    triangle_words = 0
+    for word in list_of_words:
+        if value(word, letter_values) in triangle_numbers:
+            triangle_words += 1
+            
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {triangle_words}\nporabljen cas = {cas}")
+
+main()

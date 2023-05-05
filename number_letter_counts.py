@@ -11,6 +11,8 @@
 # is in compliance with British usage.
 #________________________________________________________________
 
+import time
+
 def amount_of_letters_for_number(n):
     base = [
         '', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 
@@ -37,10 +39,16 @@ def amount_of_letters_for_number(n):
     elif 0 <= n < 20:
         return len(base[n])
 
-def number_letter_counts():
+def main():
+    start = time.time()
+
     letters_used = 0
     for i in range(1001):
         letters_used += amount_of_letters_for_number(i)
-    return letters_used
+    resitev = letters_used
+    
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
 
-print(number_letter_counts())
+main()

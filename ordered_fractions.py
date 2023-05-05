@@ -11,14 +11,24 @@
 # in ascending order of size, 
 # find the numerator of the fraction immediately to the left of 3/7.
 #________________________________________________________________________
+
+import time
 from math import gcd
 
-denominator = 0
-for d in range(10 ** 6, 1, -1):
-    if d % 7 == 0:
-        denominator = d
-        break
-numerator = 3 * (denominator // 7)
-while gcd(numerator, denominator) != 1:
-    numerator -= 1
-print(numerator)
+def main():
+    start = time.time()
+
+    denominator = 0
+    for d in range(10 ** 6, 1, -1):
+        if d % 7 == 0:
+            denominator = d
+            break
+    numerator = 3 * (denominator // 7)
+    while gcd(numerator, denominator) != 1:
+        numerator -= 1
+    
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {numerator}\nporabljen cas = {cas}")
+
+main()

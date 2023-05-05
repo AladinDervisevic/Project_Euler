@@ -9,7 +9,7 @@
 # containing a triangle with one-hundred rows.
 #___________________________________________________________________________
 import os
-os.chdir('C:\\Users\\ACER\\Desktop\\FMF\\UVP\\Project_Euler')
+import time
 
 def najvecja_pot_do(A, i, j, resitve):
     if (i, j) == (0, 0):
@@ -31,12 +31,22 @@ def najvecja_pot_slovar(A):
         ends.append(slovar_vsot[99, i])
     return max(ends)
 
-with open('triangle.txt', encoding = 'utf-8') as file:
-    vrstice = file.read().strip().split('\n')
+def main():
+    start = time.time()
 
-piramida = []
-for i in vrstice:
-    vrstica = [int(j) for j in i.split(' ')]
-    piramida.append(vrstica)
+    os.chdir('C:\\Users\\ACER\\Desktop\\FMF\\UVP\\Project_Euler')
+    with open('triangle.txt', encoding = 'utf-8') as file:
+        vrstice = file.read().strip().split('\n')
 
-print(najvecja_pot_slovar(piramida))
+    piramida = []
+    for i in vrstice:
+        vrstica = [int(j) for j in i.split(' ')]
+        piramida.append(vrstica)
+
+    resitev = najvecja_pot_slovar(piramida)
+
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

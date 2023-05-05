@@ -10,8 +10,16 @@
 # a ** b for 2 <= a <= 100 and 2 <= b <= 100?
 #_____________________________________________________________________________
 
-numbers = set()
-for a in range(2, 101):
-    for b in range(2, 101):
-        numbers.add(a ** b)
-print(len(numbers))
+import time
+
+def main():
+    start = time.time()
+
+    numbers = {a ** b for a in range(2, 101) for b in range(2, 101)}
+    resitev = len(numbers)
+
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

@@ -3,17 +3,28 @@
 # Find the smallest positive integer, x, such that 2x, 3x, 4x, 5x, and 6x, 
 # contain the same digits.
 #_________________________________________________________________________
+from time import time
 from itertools import permutations
 
-def permuted_multiples():
-    for i in range(100, 10 ** 6):
-        perm_numbers = []
-        for perm in list(permutations(str(i))):
-            if perm[0] != '0':
-                perm_numbers.append(int(''.join(perm)))
-        if all(j * i in perm_numbers for j in range(1, 7)):
-            return i
+def main():
+    start = time()
 
-print(permuted_multiples())
+    n = 125874
+    resitev = 0
+    while not resitev:
+        l = len(str(n))
+        if l < len(str(6 * n)):
+            n = 10 ** l
+        perms = set(
+            int(''.join(i)) for i in permutations(str(n)) if i[0] != '0'
+        )
+        for x in perms:
+            if all(j * x in perms for j in range(2, 7)):
+                resitev = x
+        n += 1
 
-# Little slow, but finishes under 20s.
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

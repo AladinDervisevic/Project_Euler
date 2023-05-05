@@ -9,17 +9,29 @@
 # NOTE: The first two lines in the file represent the numbers 
 # in the example given above.
 #________________________________________________________________________
-import os
-os.chdir('C:\\Users\\ACER\\Desktop\\FMF\\UVP\\Project_Euler')
 
-with open('base_exp.txt', encoding = 'utf-8') as dat:
-    numbers = []
-    for string_pair in dat.read().split('\n'):
-        pair = tuple([int(i) for i in string_pair.split(',')])
-        numbers.append(pair)
-    from math import log
-    candidates = []
-    for base, exp in numbers:
-        candidates.append(exp * log(base))
-    index = candidates.index(max(candidates))
-    print(index + 1)
+import os
+import time
+from math import log
+
+def main():
+    start = time.time()
+
+    os.chdir('C:\\Users\\ACER\\Desktop\\FMF\\UVP\\Project_Euler')
+
+    with open('base_exp.txt', encoding = 'utf-8') as dat:
+        numbers = []
+        for string_pair in dat.read().split('\n'):
+            pair = tuple([int(i) for i in string_pair.split(',')])
+            numbers.append(pair)
+        candidates = []
+        for base, exp in numbers:
+            candidates.append(exp * log(base))
+        index = candidates.index(max(candidates))
+        resitev = index + 1
+
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

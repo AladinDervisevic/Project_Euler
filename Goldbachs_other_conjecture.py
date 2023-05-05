@@ -9,7 +9,10 @@
 # It turns out that the conjecture was false.
 # What is the smallest odd composite that cannot be written 
 # as the sum of a prime and twice a square?
-#______________________________________________________________________
+#________________________________________________________________________
+
+import time
+from math import sqrt
 
 def get_primes(n):
     # returns a list of all primes < n
@@ -34,15 +37,25 @@ def is_prime(n):
 
 def test(number):
     primes = get_primes(number)
-    for prime in primes:
-        for i in range(1, number // 2):
+    for prime in primes[::-1]:
+        for i in range(1, int(sqrt(number // 2)) + 1):
             if number == prime + 2 * i ** 2:
                 return True
     return False
 
-for i in range(35, 10000, 2):
-    if not is_prime(i) and test(i) == False:
-        print(i)
-        break
+def main():
+    start = time.time()
 
-# Runtime : 60s
+    resitev = 1
+    while True:
+        resitev += 2
+        if is_prime(resitev):
+            continue
+        if not test(resitev):
+            break
+
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

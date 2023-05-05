@@ -6,6 +6,8 @@
 # How many circular primes are there below one million?
 #______________________________________________________
 
+from time import time
+
 def get_primes(n):
     # returns a list of all primes < n
     sieve = [True] * n
@@ -14,22 +16,29 @@ def get_primes(n):
             sieve[i * i :: 2 * i] = [False] * ((n - i * i - 1) // (2 * i) + 1)
     return [2] + [i for i in range(3, n, 2) if sieve[i]]
 
-def rotations_of_prime(n):
-    ln = len(str(n))
+def rotations_of(n):
+    L = len(str(n))
     rotations = [n]
-    while ln > 1:
+    while L > 1:
         n = int(str(n)[1:] + str(n)[0])
         rotations.append(n)
-        ln -= 1
+        L -= 1
     return rotations
 
 def circular_primes(n):
     rot_primes = 0
-    primes = get_primes(n)
+    primes = set(get_primes(n))
     for prime in primes:
-        if ((prime < 10 or not any(c in '024568' for c in str(prime))) and 
-        all(rotation in primes for rotation in rotations_of_prime(prime))):
+        if ((prime < 10 or not any(c in '024568' for c in str(prime))) and
+        all(i in primes for i in rotations_of(prime))):
             rot_primes += 1
     return rot_primes
 
-print(circular_primes(10 ** 6))
+def main():
+    start = time()
+    resitev = circular_primes(10 ** 6)
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

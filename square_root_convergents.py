@@ -19,9 +19,19 @@
 # numerator_n = numerator_(n-1) + 2 * denominator_(n-1)
 # denominator_n = numerator_(n-1) + denominator_(n-1)
 
-numerator, denominator, counter = 1, 1, 0
-for _ in range(1000): # 1k expansions
-    numerator, denominator = numerator + 2 * denominator, numerator + denominator
-    if len(str(numerator)) > len(str(denominator)):
-        counter += 1
-print(counter)
+from time import time
+
+def main():
+    start = time()
+
+    num, den, counter = 1, 1, 0
+    for _ in range(1000): # 1k expansions
+        num, den = num + 2 * den, num + den
+        if len(str(num)) > len(str(den)):
+            counter += 1
+
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {counter}\nporabljen cas = {cas}")
+
+main()

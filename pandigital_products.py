@@ -8,23 +8,31 @@
 # HINT: Some products can be obtained in more than one way 
 # so be sure to only include it once in your sum.
 #_____________________________________________________________________________
-import itertools
+from time import time
+from itertools import permutations
 
-sum = 0
-identity = {}
-permutations = list(itertools.permutations(list('123456789')))
-for i in range(1, 4):
-    j = i + 3
-    if i == 1:
-        j = 5
-    for permutation in permutations:
-        perm = ''.join(permutation)
-        multiplicand = int(perm[:i])
-        multiplier = int(perm[i:j])
-        product = int(perm[j:])
-        if multiplicand * multiplier == product:
-            if product not in identity:
-                sum += product
-            identity[product] = [multiplicand, multiplier]
-print(identity)
-print(sum)
+def main():
+    start = time()
+
+    sum = 0
+    identity = {}
+    perms = [''.join(i) for i in permutations('123456789')]
+    for i in range(1, 4):
+        j = i + 3
+        if i == 1:
+            j = 5
+        for perm in perms:
+            multiplicand = int(perm[:i])
+            multiplier = int(perm[i:j])
+            product = int(perm[j:])
+            if multiplicand * multiplier == product:
+                if product not in identity:
+                    sum += product
+                identity[product] = [multiplicand, multiplier]
+    print(identity)
+    
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {sum}\nporabljen cas = {cas}")
+
+main()

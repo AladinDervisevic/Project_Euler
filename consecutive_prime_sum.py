@@ -8,6 +8,8 @@
 # can be written as the sum of the most consecutive primes?
 #___________________________________________________________________
 
+import time
+
 def is_prime(n):
     if n <= 2:
         return n == 2
@@ -21,23 +23,31 @@ def is_prime(n):
             d += 2
         return True
 
-def next_prime(number):
-    x = number + 1
+def next_prime(n):
+    if n == 2:
+        return 3
+    x = n + 2
     while not is_prime(x):
-        x += 1
+        x += 2
     return x
 
-answer = 0
-sequence_length = 0
-for start in range(2, 10 ** 3):
-    if is_prime(start):
-        local_sum, last_prime = start, start
-        counter = 1
-        while local_sum < 10 ** 6:
-            if is_prime(local_sum) and counter >= sequence_length:
-                sequence_length = counter
-                answer = local_sum
-            local_sum += next_prime(last_prime)
-            last_prime = next_prime(last_prime)
-            counter += 1
-print(answer)
+def main():
+    start_time = time.time()
+    answer = 0
+    max_length = 0
+    for start in range(2, 10 ** 3):
+        if is_prime(start):
+            local_sum, last_prime = start, start
+            counter = 1
+            while local_sum < 10 ** 6:
+                if is_prime(local_sum) and counter >= max_length:
+                    max_length = counter
+                    answer = local_sum
+                last_prime = next_prime(last_prime)
+                local_sum += last_prime
+                counter += 1
+    end = time.time()
+    cas = round(end - start_time, 2)
+    print(f"resitev = {answer}\nporabljen cas = {cas}")
+
+main()

@@ -3,12 +3,21 @@
 # of the factorial of their digits.
 # Note: as 1! = 1 and 2! = 2 are not sums, they are not included.
 #________________________________________________________________
-import math
+import time
+from math import factorial
 
 def sum_of_digit_factorials(n):
-    return sum(math.factorial(int(i)) for i in str(n))
+    if n < 10:
+        return factorial(n)
+    return factorial(n % 10) + sum_of_digit_factorials(n // 10)
 
-result = sum(
-    i for i in range(10, 10 ** 5) if sum_of_digit_factorials(i) == i
-)
-print(result)
+def main():
+    start = time.time()
+    resitev = sum(
+        i for i in range(10, 10 ** 5) if sum_of_digit_factorials(i) == i
+    )
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

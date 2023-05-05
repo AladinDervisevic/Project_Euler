@@ -12,6 +12,8 @@
 # d8 * d9 * d10 =289 is divisible by 17
 # Find the sum of all 0 to 9 pandigital numbers with this property.
 #__________________________________________________________________
+
+from time import time
 from itertools import permutations
 
 def property_check(num):
@@ -21,14 +23,23 @@ def property_check(num):
             return False
     return True
 
-def pandigital_numbers():
-    perms = list(permutations(list('0123456789')))
-    pandigitals = []
-    for perm in perms:
+def digit_product(n):
+    if n < 10:
+        return n
+    return n % 10 * digit_product(n // 10)
+
+def main():
+    start = time()
+
+    resitev = 0
+    for perm in permutations('0123456789'):
         if perm[0] != '0':
             number = ''.join(perm)
             if property_check(number):
-                pandigitals.append(int(number))
-    return pandigitals
+                resitev += int(number)
 
-print(sum(pandigital_numbers()))       
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

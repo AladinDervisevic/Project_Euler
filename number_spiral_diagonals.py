@@ -12,8 +12,18 @@
 # in a 1001 by 1001 spiral formed in the same way?
 #________________________________________________________________________
 
-sum, last_spiral_number = 1, 1
-for i in range(3, 1002, 2):
-    sum += last_spiral_number * 4 + 10 * (i - 1)
-    last_spiral_number = last_spiral_number + 4 * (i - 1)
-print(sum)
+import time
+
+def main():
+    start = time.time()
+
+    sum, last_spiral_number = 1, 1
+    for i in range(3, 1002, 2):
+        sum += last_spiral_number * 4 + 10 * (i - 1)
+        last_spiral_number = last_spiral_number + 4 * (i - 1)
+    
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {sum}\nporabljen cas = {cas}")
+
+main()

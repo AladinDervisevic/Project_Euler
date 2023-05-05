@@ -3,7 +3,7 @@
 # So the 7th triangle number would be 1 + 2 + 3 + 4 + 5 + 6 + 7 = 28. 
 # The first ten terms would be:
 # 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, ...
-# Let us list the factors of the first seven triangle numbers:
+# Let us list the divisors of the first seven triangle numbers:
 #  1: 1
 #  3: 1,3
 #  6: 1,2,3,6
@@ -16,8 +16,25 @@
 # to have over five hundred divisors?
 #____________________________________________________________________________
 
+import time
+
+def is_prime(n):
+    if n <= 2:
+        return n == 2
+    elif n % 2 == 0:
+        return False
+    else:
+        d = 3
+        while d ** 2 <= n:
+            if n % d == 0:
+                return False
+            d += 2
+        return True
+
 # function that checks how many divisors a number has
 def number_of_divisors(number):
+    if is_prime(number):
+        return 2
     limit = int(number ** 0.5)
     counter = 0
     for i in range(1, limit + 1):
@@ -27,10 +44,17 @@ def number_of_divisors(number):
     # 1 to the square root of the number holds exactly half of the divisors
 
 def hig_div_tri_num():
-    triangle_number, place_of_number = 1, 1
+    triangle_number, index = 1, 1
     while number_of_divisors(triangle_number) <= 500:
-        place_of_number += 1
-        triangle_number += place_of_number
+        index += 1
+        triangle_number += index
     return triangle_number
 
-print(hig_div_tri_num())
+def main():
+    start = time.time()
+    resitev = hig_div_tri_num()
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

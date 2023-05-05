@@ -37,16 +37,26 @@
 
 # https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Continued_fraction_expansion 
 
-counter = 0
-candidates = sorted(set(range(2, 10 ** 4 + 1)) - set(i ** 2 for i in range(2, 101)))
-for N in candidates:
-    whole = int(N ** 0.5)
-    r = whole
-    k, period = 1, 0
-    while k != 1 or period == 0:
-        k = (N - r ** 2) // k
-        r = (whole + r) // k * k - r
-        period += 1
-    if period % 2 != 0:
-        counter += 1
-print(counter)
+import time
+
+def main():
+    start = time.time()
+
+    counter = 0
+    candidates = sorted(set(range(2, 10 ** 4 + 1)) - set(i ** 2 for i in range(2, 101)))
+    for N in candidates:
+        whole = int(N ** 0.5)
+        r = whole
+        k, period = 1, 0
+        while k != 1 or period == 0:
+            k = (N - r ** 2) // k
+            r = (whole + r) // k * k - r
+            period += 1
+        if period % 2 != 0:
+            counter += 1
+    
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {counter}\nporabljen cas = {cas}")
+
+main()

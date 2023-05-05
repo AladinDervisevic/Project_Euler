@@ -8,8 +8,15 @@
 # n can't be greater than 10 since 10 ** n always has n + 1 digits
 
 from math import log10
+from time import time
 
-counter = 0
-for n in range(1, 10):
-    counter += int(1 / (1 - log10(n)))
-print(counter)
+def main():
+    start = time()
+    counter = 0
+    for n in range(1, 10):
+        counter += int(1 / (1 - log10(n)))
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {counter}\nporabljen cas = {cas}")
+
+main()

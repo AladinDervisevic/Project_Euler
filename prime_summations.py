@@ -11,6 +11,8 @@
 # in over five thousand different ways?
 #__________________________________________________________________
 
+from time import time
+
 def is_prime(n):
     if n <= 2:
         return n == 2
@@ -42,9 +44,17 @@ def partitions(n, m = 1):
             if all(is_prime(i) for i in new_list):
                 yield new_list
 
-i = 1
-while True:
-    if len([way for way in partitions(i)]) > 5000:
-        print(i)
-        break
-    i += 1
+def main():
+    start = time()
+
+    resitev = 1
+    while True:
+        if len([way for way in partitions(resitev)]) > 5000:
+            break
+        resitev += 1
+
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

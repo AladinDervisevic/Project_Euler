@@ -9,6 +9,8 @@
 # find the value of the denominator.
 #_____________________________________________________________________________
 
+import time
+
 def test(i, j):
     return i / j == (i // 10) / (j % 10) and str(i)[1] == str(j)[0]
 
@@ -21,14 +23,25 @@ def simplify_and_return_denominator(fraction):
             denominator //= i
     return denominator
 
-eligible_fractions = []
-for i in range(10, 100):
-    for j in range(10, 100):
-        if i % 10 != 0 and j % 10 != 0 and test(i, j) and i < j:
-            eligible_fractions.append((i, j))
-print(eligible_fractions)
-answer = [1,1]
-for fraction in eligible_fractions:
-    answer[0] *= (fraction[0] // 10)
-    answer[1] *= (fraction[1] % 10)
-print(simplify_and_return_denominator(answer))
+def main():
+    start = time.time()
+
+    eligible_fractions = []
+    for i in range(10, 100):
+        for j in range(10, 100):
+            if i % 10 != 0 and j % 10 != 0 and test(i, j) and i < j:
+                eligible_fractions.append((i, j))
+    print(eligible_fractions)
+
+    answer = [1,1]
+    for fraction in eligible_fractions:
+        answer[0] *= (fraction[0] // 10)
+        answer[1] *= (fraction[1] % 10)
+
+    answer = simplify_and_return_denominator(answer)
+
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {answer}\nporabljen cas = {cas}")
+
+main()

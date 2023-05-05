@@ -12,6 +12,7 @@
 
 # https://en.wikipedia.org/wiki/Fibonacci_number
 
+from time import time
 from math import log10
 
 def is_pandigital(number):
@@ -30,4 +31,11 @@ def pandigital_fibonacci_ends():
             if is_pandigital(first):
                 return k
 
-print(pandigital_fibonacci_ends())
+def main():
+    start = time()
+    resitev = pandigital_fibonacci_ends()
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

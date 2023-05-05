@@ -12,5 +12,13 @@
 # I need 2 * n to be as close to a as possible 
 # --> 2 * n = (a - 1) // 2 * 2 * a
 
-result = sum(((a - 1) // 2) * 2 * a for a in range(3, 1001))
-print(result)
+from time import time
+
+def main():
+    start = time()
+    result = sum(((a - 1) // 2) * 2 * a for a in range(3, 1001))
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {result}\nporabljen cas = {cas}")
+
+main()

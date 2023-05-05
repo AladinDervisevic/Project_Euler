@@ -2,10 +2,19 @@
 # What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
 #__________________________________________________________________________________________________________
 
-def smallest_num_div_by_1_to_20():
-    start = 2 * 7 * 11 * 13 * 17 * 18 * 19 * 20
-    for i in range(start, 10 ** 10):
-        if all(i % j == 0 for j in range(1, 21)):
-            return i
+from time import time
 
-print(smallest_num_div_by_1_to_20())
+def main():
+    start = time()
+
+    resitev = 2 * 7 * 11 * 13 * 17 * 18 * 19 * 20
+    for i in range(resitev, 10 ** 10):
+        if all(i % j == 0 for j in range(1, 21)):
+            resitev = i
+            break
+        
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

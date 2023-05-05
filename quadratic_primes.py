@@ -15,6 +15,8 @@
 # maximum number of primes for consecutive values of n, starting with n = 0.
 #___________________________________________________________________________
 
+from time import time
+
 def is_prime(n):
     if n <= 2:
         return n == 2
@@ -29,24 +31,29 @@ def is_prime(n):
         return True
 
 def number_of_consecutive_primes(a, b):
-    sequence, n = 0, 0
+    counter, n = 0, 0
     while True:
         number = n ** 2 + a * n + b
         if is_prime(number):
-            sequence += 1
+            counter += 1
             n += 1
         else:
-            return sequence
+            return counter
 
-def quadratic_primes():
+def main():
+    start = time()
+
     coefficients = {}
-    for a in range(-999, 1000):
-        for b in range(-1000, 1001):
+    for a in range(-999, 1000, 2): # skipping even numbers because the formula would be divisible by 2
+        for b in range(-999, 1001, 2): 
             sequence_length = number_of_consecutive_primes(a, b)
             if sequence_length > 0:
                 coefficients[(a, b)] = sequence_length
-    wanted_pair = sorted([(v, k) for k, v in coefficients.items()], reverse = True)[0]
-    result = wanted_pair[1][0] * wanted_pair[1][1]
-    return result
+    wanted_pair = max((v, k) for k, v in coefficients.items())
+    resitev = wanted_pair[1][0] * wanted_pair[1][1]
+    
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
 
-print(quadratic_primes())
+main()

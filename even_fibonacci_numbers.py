@@ -5,6 +5,8 @@
 # find the sum of the even-valued terms.
 #___________________________________________________________________________________________
 
+import time
+
 def even_fibonacci_numbers():
     first, second = 1, 2
     sum = 0
@@ -14,4 +16,11 @@ def even_fibonacci_numbers():
         first, second = second, first + second
     return sum
 
-print(even_fibonacci_numbers())
+def main():
+    start = time.time()
+    resitev = even_fibonacci_numbers()
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

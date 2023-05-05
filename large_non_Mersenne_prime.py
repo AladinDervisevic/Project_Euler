@@ -9,5 +9,13 @@
 # Find the last ten digits of this prime number.
 #_____________________________________________________________________
 
-result = (28433 * pow(2, 7830457, 10 ** 10) + 1) % (10 ** 10)
-print(result)
+import time
+
+def main():
+    start = time.time()
+    resitev = (28433 * pow(2, 7830457, 10 ** 10) + 1) % (10 ** 10)
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

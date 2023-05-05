@@ -7,14 +7,24 @@
 
 # sum of the first (a) numbers multiplied by the sum of the first (b) numbers
 
-limit = 2 * 10 ** 6
-area = 0
-min_difference = limit
-for a in range(1, 101):
-    for b in range(a, 101):
-        number_of_rectangles = (a ** 2 + a) * (b ** 2 + b) // 4
-        difference = abs(limit - number_of_rectangles)
-        if difference < min_difference:
-            min_difference = difference
-            area = a * b
-print(area)
+import time
+
+def main():
+    start = time.time()
+
+    limit = 2 * 10 ** 6
+    area = 0
+    min_difference = limit
+    for a in range(1, 101):
+        for b in range(a, 101):
+            number_of_rectangles = (a ** 2 + a) * (b ** 2 + b) // 4
+            difference = abs(limit - number_of_rectangles)
+            if difference < min_difference:
+                min_difference = difference
+                area = a * b
+
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {area}\nporabljen cas = {cas}")
+
+main()

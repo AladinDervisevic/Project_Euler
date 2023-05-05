@@ -8,6 +8,8 @@
 # NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
 #__________________________________________________________________
 
+from time import time
+
 def get_primes(n):
     # returns a list of all primes < n
     sieve = [True] * n
@@ -45,13 +47,20 @@ def from_right(number):
 
 def truncatable_primes():
     primes = get_primes(10 ** 6)
-    truncatable_numbers = []
-    for prime in primes:
-        if prime < 10:
+    truncatable = set()
+    for p in primes:
+        if p < 10:
             continue
-        if from_left(prime) and from_right(prime):
-            truncatable_numbers.append(prime)
-        if len(truncatable_numbers) == 11:
-            return sum(truncatable_numbers) 
+        if from_left(p) and from_right(p):
+            truncatable.add(p)
+        if len(truncatable) == 11:
+            return sum(truncatable) 
+        
+def main():
+    start = time()
+    resitev = truncatable_primes()
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
 
-print(truncatable_primes())    # It's slow, but at least it works. 
+main()

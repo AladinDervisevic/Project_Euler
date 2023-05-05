@@ -26,6 +26,8 @@
 
 #_____________________________________________________________________
 
+import time
+
 piramida = '''75
 95 64
 17 47 82
@@ -42,13 +44,6 @@ piramida = '''75
 63 66 04 68 89 53 67 30 73 16 69 87 40 31
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23'''
 
-piramida_stevilk = []
-for vrstica in piramida.split('\n'):
-    sez = vrstica.split(' ')
-    for i in range(len(sez)):
-        sez[i] = int(sez[i])
-    piramida_stevilk.append(sez)
-
 def najvecja_pot_do(A, i, j, resitve):
     if (i, j) == (0, 0):
         return A[i][j]
@@ -59,13 +54,27 @@ def najvecja_pot_do(A, i, j, resitve):
     else:
         return max(resitve[i - 1, j - 1], resitve[i - 1, j]) + A[i][j]
 
-slovar_vsot = {}
-for i in range(len(piramida_stevilk)):
-    for j in range(len(piramida_stevilk[i])):
-        slovar_vsot[i, j] = najvecja_pot_do(
-            piramida_stevilk, i, j, slovar_vsot
-        )
-ends = []
-for i in range(15):
-    ends.append(slovar_vsot[14, i])
-print(max(ends))
+def main(piramida):
+    start = time.time()
+
+    piramida_stevilk = []
+    for vrstica in piramida.split('\n'):
+        sez = list(map(int, vrstica.split(' ')))
+        piramida_stevilk.append(sez)
+
+    slovar_vsot = {}
+    for i in range(len(piramida_stevilk)):
+        for j in range(len(piramida_stevilk[i])):
+            slovar_vsot[i, j] = najvecja_pot_do(
+                piramida_stevilk, i, j, slovar_vsot
+            )
+    ends = []
+    for i in range(15):
+        ends.append(slovar_vsot[14, i])
+    resitev = max(ends)
+
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main(piramida)

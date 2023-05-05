@@ -8,8 +8,7 @@
 
 # Discrete mathematics --> Stirling's numbers of 2nd kind
 
-coins = [200, 100, 50, 20, 10, 5, 2, 1]
-money = 200
+import time
 
 def count(money, coins):
     if money == 0:
@@ -18,4 +17,15 @@ def count(money, coins):
         return 0
     return count(money, coins[1:]) + count(money - coins[0], coins)
 
-print(count(money, coins))    
+def main():
+    start = time.time()
+
+    coins = [200, 100, 50, 20, 10, 5, 2, 1]
+    money = 200
+    resitev = count(money, coins)
+    
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

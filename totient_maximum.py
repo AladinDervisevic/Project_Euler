@@ -24,6 +24,7 @@
 # From that we see the wanted ratio as : 
 # n / phi(n) = p / (p - 1) for p in prime factors of n
 
+from time import time
 
 def get_primes(n):
     # returns a list of all primes < n
@@ -33,11 +34,17 @@ def get_primes(n):
             sieve[i * i :: 2 * i] = [False] * ((n - i * i - 1) // (2 * i) + 1)
     return [2] + [i for i in range(3, n, 2) if sieve[i]]
 
-def totient_maximum():
+def main():
+    start = time()
+
     n = 1
     for prime in get_primes(10 ** 3):
         if n * prime > 10 ** 6:
-            return n
+            break
         n *= prime
 
-print(totient_maximum())
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {n}\nporabljen cas = {cas}")
+
+main()

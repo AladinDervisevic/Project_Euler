@@ -13,6 +13,8 @@
 # Replacing a number's last digit is not needed since in any numbers case 
 # it'll have 5 generated numbers, divisible by 2.
 
+from time import time
+
 def is_prime(n):
     if n <= 2:
         return n == 2
@@ -49,7 +51,10 @@ def prime_family_value(prime):
             primes.append(number)
     return len(primes)
 
-def out():
+def main():
+    start = time()
+
+    resitev = 0
     primes = set(get_primes(10 ** 7)) - set(get_primes(10 ** 4))
     for prime in sorted(primes):  
         if any(str(prime).count(digit) == 3 for digit in str(prime)):
@@ -57,7 +62,11 @@ def out():
             if str(prime)[-1] == rep:
                 continue    # last digit can't be the repeating one
             if prime_family_value(prime) == 8:
-                return prime
-    return 'Error 404'
+                resitev = prime
+                break
+    
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
 
-print(out())
+main()

@@ -16,6 +16,8 @@
 # let P(n) be the number of all valid partitions of the integer
 # Partitions are not ordered, thus : 1 + 3 = 3 + 1 is counted once.
 
+from time import time
+
 def memo(P):
     slovar = {}
     def mem_P(n, k):
@@ -35,4 +37,11 @@ def P_k(n, k):
 def P(n):
     return sum(P_k(n, k) for k in range(2, n + 1))
 
-print(P(100))
+def main():
+    start = time()
+    resitev = P(100)
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

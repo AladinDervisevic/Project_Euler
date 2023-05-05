@@ -8,6 +8,15 @@
 # 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
 #___________________________________________________________________________
 
-import itertools
-permutations = list(itertools.permutations(list('0123456789')))
-print(''.join(permutations[10 ** 6 - 1]))
+from time import time
+from itertools import permutations
+
+def main():
+    start = time()
+    perms = list(permutations(list('0123456789')))
+    resitev = "".join(perms[10 ** 6 - 1])
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

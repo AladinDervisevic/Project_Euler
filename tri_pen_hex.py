@@ -6,21 +6,30 @@
 # It can be verified that T(285) = P(165) = H(143) = 40755.
 # Find the next triangle number that is also pentagonal and hexagonal.
 #_____________________________________________________________________
-import math
+from math import sqrt
+from time import time
 
 def tri(n):
     return n * (n + 1) // 2
 
 def pen(P):
-    return (1 + math.sqrt(1 + 24 * P)) / 6
+    return (1 + sqrt(1 + 24 * P)) / 6
 
 def heks(H):
-    return (1 + math.sqrt(1 + 8 * H)) / 4
+    return (1 + sqrt(1 + 8 * H)) / 4
 
-n = 286
-while True:
-    T = tri(n)
-    if pen(T) == int(pen(T)) and heks(T) == int(heks(T)):
-        print(T)
-        break
-    n += 1
+def main():
+    start = time()
+    n = 286
+    resitev = 0
+    while True:
+        resitev = tri(n)
+        if (pen(resitev) == int(pen(resitev)) and 
+            heks(resitev) == int(heks(resitev))):
+            break
+        n += 1
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

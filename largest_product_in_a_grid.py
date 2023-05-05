@@ -19,19 +19,20 @@ grid = '''08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48'''
 
-grid = grid.replace('\n', ' ').split(' ')
-for i in range(len(grid)):
-    grid[i] = int(grid[i])
-
 # What is the greatest product of four adjacent numbers in the same direction
 # (up, down, left, right, or diagonally) in the 20×20 grid?
 #____________________________________________________________________________
 
-def produkt(seznam):
-    produkt = 1
-    for i in seznam:
-        produkt *= i
-    return produkt
+import time
+
+grid = grid.replace('\n', ' ').split(' ')
+for i in range(len(grid)):
+    grid[i] = int(grid[i])
+
+def produkt(sez):
+    if not sez:
+        return 1
+    return sez[0] * produkt(sez[1:])
 
 def largest_product_in_a_grid(grid):
     mat = []  # matrika
@@ -66,4 +67,13 @@ def largest_product_in_a_grid(grid):
                 najvecji_produkt = max(vert, horiz, diag, reverse_diag)
     return najvecji_produkt
 
-print(largest_product_in_a_grid(grid))
+def main():
+    start = time.time()
+
+    resitev = largest_product_in_a_grid(grid)
+
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()

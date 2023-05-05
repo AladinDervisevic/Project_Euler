@@ -7,10 +7,12 @@
 # Euclid's formula for generating Pythagorean triples 
 # given an arbitrary pair of integeres m & n, m > n > 0.
 
+import time
+
 def euclid():
     Pythagorean_triples = {}
     for a in range(1, 500):
-        for b in range(1, 500):
+        for b in range(1, 500 - a):
             c = (a ** 2 + b ** 2) ** 0.5
             if a > b and float(c) == int(c):
                 perimeter = a + b + int(c)
@@ -21,4 +23,11 @@ def euclid():
                         Pythagorean_triples[perimeter] += 1
     return max((v, k) for k, v in Pythagorean_triples.items())[1]
 
-print(euclid())
+def main():
+    start = time.time()
+    resitev = euclid()
+    end = time.time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+
+main()
