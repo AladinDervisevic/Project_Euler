@@ -18,25 +18,46 @@
 # How many chains, with a starting number below one million, 
 # contain exactly sixty non-repeating terms?
 #_____________________________________________________________________________
+from time import time
 from math import factorial
 
+def memo(f):
+    result = {}
+    def memo_f(*args, **kwargs):
+        if args not in result:
+            result[args] = f(*args, **kwargs)
+        # else:
+        #     print("  reusing", args, "=", result[args])
+        return result[args]
+    return memo_f
+
+@memo
 def next_in_chain(number):
-    if number < 10:
-        return factorial(number)
-    else:
-        return factorial(number % 10) + next_in_chain(number // 10)
+    return sum(factorial(int(i)) for i in str(number))
+    
+def main():
+    start = time()
+    N = 10 ** 6
+    terms = {}
+    
+    for i in range(N):
+        n = i
+        rec_stack = set()
+        while True:
+            if n in rec_stack:
+                terms[i] = len(rec_stack)
+                break
+            rec_stack.add(n)
+            n = next_in_chain(n)
+            if n in terms:
+                terms[i] = len(rec_stack) + terms[n]
+                break
+        
+    resitev = sum(1 for v in terms.values() if v == 60)
 
-chains_with_sixty_non_repeating_terms = 0
-for number in range(10 ** 6):
-    terms, last_number = [number], number
-    while True:
-        last_number = next_in_chain(last_number)
-        if last_number not in terms:
-            terms.append(last_number)
-        else:
-            break
-    if len(terms) == 60:
-        chains_with_sixty_non_repeating_terms += 1
-print(chains_with_sixty_non_repeating_terms)
+    end = time()
+    cas = round(end - start, 2)
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
+    
 
-# Runtime : 1min 50s
+main()
