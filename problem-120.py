@@ -7,18 +7,21 @@
 # For 3 ≤ a ≤ 1000, find ∑ r_max.
 #_________________________________________________________
 
+# https://en.wikipedia.org/wiki/Binomial_theorem
+
 # For any a & any even n, the remainder will always be 2.
 # For any a & any odd n, it'll be 2 * a * n.
-# I need 2 * n to be as close to a as possible 
-# --> 2 * n = (a - 1) // 2 * 2 * a
+# I need 2 * n to be as close to a as possible
 
 from time import time
 
 def main():
     start = time()
-    result = sum(((a - 1) // 2) * 2 * a for a in range(3, 1001))
+    resitev = 0
+    for a in range(3, 1001):
+        resitev += max((2 * n * a) % (a ** 2) for n in range(a // 2 + 1))
     end = time()
     cas = round(end - start, 2)
-    print(f"resitev = {result}\nporabljen cas = {cas}")
+    print(f"resitev = {resitev}\nporabljen cas = {cas}")
 
 main()
